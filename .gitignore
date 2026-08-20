@@ -1,0 +1,14 @@
+# Variáveis de ambiente locais (podem conter senhas)
+.env
+*.env
+
+# Arquivos do Python
+__pycache__/
+*.pyc
+
+# Arquivos do Go
+*.exe
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
