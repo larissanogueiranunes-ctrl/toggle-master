@@ -1,13 +1,20 @@
-FROM python:3.11-slim  
+FROM golang:1.21-alpine AS builder 
 
 WORKDIR /app
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
+COPY go.mod go.sum ./
+RUN go mod download
 
 COPY . .
+RUN CGO_enabled=0 GOOS=linux go 
+build -o evalution-service .
 
-EXPOSE 8003
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8003", "app:app"]
+
+FROM alpine:3.19
+WORKDIR /app
+RUN apk add --no-cache ca-certificates
+COPY --from=builder /app/evaluation-service . 
+EXPOSE 8004
+
+CMD ["./evaluation-service"]

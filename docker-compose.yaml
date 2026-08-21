@@ -56,7 +56,7 @@ services:
     build: ./targeting-service
     ports:
       - "8003:8003"
-    environment:
+    environment: 
       - DATABASE_URL=postgres://targeting_user:targeting_password@targeting-db:5432/targeting_db
       - AUTH_SERVICE_URL=http://auth-service:8080
       - PORT=8003
@@ -79,6 +79,24 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5    
-
-
-        
+  evaluation-service:
+    build: ./evaluation-service
+    ports:
+      - "8004:8004"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - FLAG_SERVICE_URL=http://flag-service:8002
+      - TARGETING_SERVICE_URL=http://targeting-service:8003
+      - SERVICE_API_KEY=tm_key_4d9630daa7a6457e84f0e86f03f5ef8e6f0d856981cf5fb9b3c9430a6b93ffee
+      - PORT=8004
+    depends_on:
+      redis:
+        condition: service_started
+      auth-service:
+        condition: service_started
+      flag-service:
+        condition: service_started
+      targeting-service:
+        condition: service_started
+  redis:
+    image: redis:7-alpine
