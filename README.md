@@ -49,3 +49,34 @@ docker compose up --build
 Consulte o `docker-compose.yaml` de cada serviço para as variáveis de ambiente, portas e dependências (PostgreSQL, Redis, DynamoDB) necessárias.
 
 ## Estrutura do projeto
+toggle-master/
+
+├── auth-service/
+
+├── evaluation-service/
+
+├── flag-service/
+
+├── targeting-service/
+
+├── docker-compose.yaml
+
+├── dockerfile
+
+└── .gitignore
+
+
+
+## Status
+
+✅ Containerização completa dos quatro serviços
+
+✅ Health endpoints validados
+
+✅ Projeto publicado no GitHub
+
+🔜 Deploy completo do cluster Kubernetes na AWS
+
+
+[LinkedIn](https://www.linkedin.com/in/larissa-nogueira-325a7028a/) 
+
